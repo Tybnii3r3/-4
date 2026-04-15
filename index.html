@@ -2,81 +2,201 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>MM6 Store</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MM6 Maison Margiela - Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<header>
-    <div class="logo">MM6</div> 
-    <nav>
-        <a href="#">Головна</a>
-        <a href="#">Каталог</a>
-        <a href="#">Про нас</a>
-        <a href="#">Контакти</a>
-        <a href="#">Кошик</a>
-    </nav>
-</header>
-
-<main>
-
-    
-        <h1>Нова колекція</h1>
-        <p>Стильний одяг для кожного</p>
-        <button>Купити</button>
-    </section>
-
-    <!-- КАТАЛОГ -->
-    <section class="catalog">
-        <h2>Каталог</h2>
-
-        <div class="catalog-container">
-
-            
-            <aside class="filters">
-                <h3>Фільтри</h3>
-                <p>Ціна</p>
-                <p>Розмір</p>
-                <p>Категорія</p>
-            </aside>
-
-            
-            <div class="products">
-
-                <div class="product">
-                    <img src="img/jeans.jpg" alt=""> 
-                    <p>Джинси</p>
-                    <span>8200 грн</span>
-                </div>
-
-                <div class="product">
-                    <img src="img/tshirt.jpg" alt="">
-                    <p>Рубашка</p>
-                    <span>5500 грн</span>
-                </div>
-
-                <div class="product">
-                    <img src="img/jacket.jpg" alt=""> 
-                    <p>Куртка</p>
-                    <span>7000 грн</span>
-                </div>
-
-            </div>
-
+    <header class="header">
+        <div class="logo" onclick="app.navigate('home')">MM6</div>
+        <nav class="nav">
+            <a href="#" data-target="catalog" class="nav-link">каталог</a>
+            <a href="#" data-target="about" class="nav-link">про нас</a>
+            <a href="#" data-target="contacts" class="nav-link">контакти</a>
+            <a href="#" data-target="cart" class="nav-link">кошик <span id="cart-badge" class="cart-badge hidden">0</span></a>
+            <a href="#" data-target="login" class="nav-link">особистий кабінет</a>
+        </nav>
+        <div class="search-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
-    </section>
+    </header>
 
-    
-    <section class="about">
-        <h2>Про нас</h2>
-        <p>Ми пропонуємо сучасний одяг високої якості.</p>
-    </section>
+    <main id="app-content">
+        <!-- ---------------- HOME VIEW ---------------- -->
+        <section id="view-home" class="view active">
+            <div class="split-layout">
+                <div class="home-text">
+                    <p>Заснований у 1997 році, MM6 Maison Margiela постійно переосмислює сучасний гардероб з дотепністю та непокорою. Концептуальні канони, із відсутністю гендерних та вікових обмежень, є унікальними базами для створення одягу, взуття, аксесуарів та виробів зі шкіри.</p>
+                    <div class="home-buttons">
+                        <button class="btn btn-outline" onclick="app.viewCatalog('women')">Жінкам</button>
+                        <button class="btn btn-outline" onclick="app.viewCatalog('men')">Чоловікам</button>
+                    </div>
+                </div>
+                <div class="home-image">
+                    <img src="images/home.png" alt="MM6 Fashion">
+                </div>
+            </div>
+        </section>
 
-</main>
+        <!-- ---------------- ABOUT VIEW ---------------- -->
+        <section id="view-about" class="view">
+            <div class="hero-bg image-overlay">
+                <img src="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Runway">
+                <div class="hero-content">
+                    <h1>Maison Margiela</h1>
+                    <p>Maison Margiela - це легендарний модний дім, заснований у Парижі в 1988 році бельгійським дизайнером Мартіном Маржелою. Його філософія полягає в експериментуванні з модою і руйнуванні традиційних уявлень про красу і стиль. Марка стала відома своїм унікальним підходом до дизайну, який поєднує авангардні ідеї з мінімалізмом.</p>
+                </div>
+            </div>
+        </section>
 
-<footer>
-    <p>Контакти | Instagram | YouTube</p>
-</footer>
+        <!-- ---------------- CATALOG VIEW ---------------- -->
+        <section id="view-catalog" class="view">
+            <div class="catalog-layout">
+                <aside class="sidebar">
+                    <ul class="categories" id="category-sidebar">
+                        <li data-category="all" class="active">Всі товари</li>
+                        <li data-category="Одяг">Одяг</li>
+                        <li data-category="Взуття">Взуття</li>
+                        <li data-category="Аксесуари">Аксесуари</li>
+                        <li data-category="Білизна">Білизна</li>
+                    </ul>
+                </aside>
+                <div class="catalog-content">
+                    <div class="filters">
+                        <select id="filter-price" onchange="app.applyFilters()">
+                            <option value="">Ціна</option>
+                            <option value="asc">Від найдешевших</option>
+                            <option value="desc">Від найдорожчих</option>
+                        </select>
+                        <select id="filter-brand" onchange="app.applyFilters()">
+                            <option value="">Бренд</option>
+                            <option value="MM6">MM6</option>
+                            <option value="Maison Margiela">Maison Margiela</option>
+                        </select>
+                        <select id="filter-size" onchange="app.applyFilters()">
+                            <option value="">Розмір</option>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                        </select>
+                        <select id="filter-color" onchange="app.applyFilters()">
+                            <option value="">Колір</option>
+                            <option value="Чорний">Чорний</option>
+                            <option value="Білий">Білий</option>
+                            <option value="Синій">Синій</option>
+                        </select>
+                    </div>
+                    <div class="product-grid" id="productGrid">
+                        <!-- Products rendered here by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <!-- ---------------- PRODUCT VIEW ---------------- -->
+        <section id="view-product" class="view">
+            <div class="product-layout">
+                <div class="product-images">
+                    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" alt="Product 1">
+                    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" alt="Product 2">
+                    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" alt="Product 3">
+                    <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" alt="Product 4">
+                </div>
+                <div class="product-details">
+                    <h2 class="product-title" id="detail-title">Класичні Джинси</h2>
+                    <p class="product-country">Країна виробник — Італія</p>
+                    <p class="product-price" id="detail-price">12 400 ₴</p>
+                    
+                    <div class="product-sizes">
+                        <p>Розмірна сітка</p>
+                        <div class="size-options">
+                            <button>XS</button>
+                            <button class="selected">S</button>
+                            <button>M</button>
+                            <button>L</button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-full" onclick="app.addToCart()">Додати в кошик</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------------- CART VIEW ---------------- -->
+        <section id="view-cart" class="view">
+            <div class="cart-layout">
+                <div class="cart-items" id="cart-list">
+                    <!-- Cart items rendered here -->
+                    <p class="empty-msg">Ваш кошик порожній</p>
+                </div>
+                <div class="cart-summary">
+                    <h3>Ваше замовлення</h3>
+                    <div class="summary-row">
+                        <span>Кількість товарів:</span>
+                        <span id="cart-count">0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>До сплати:</span>
+                        <span id="cart-total">0 ₴</span>
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="app.navigate('checkout')">Оформити замовлення</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------------- CHECKOUT VIEW ---------------- -->
+        <section id="view-checkout" class="view">
+            <div class="checkout-container">
+                <h2>Оформлення замовлення</h2>
+                <form class="checkout-form" onsubmit="event.preventDefault(); app.completeOrder();">
+                    <input type="text" placeholder="Ім'я" required>
+                    <input type="tel" placeholder="Номер телефону" required>
+                    <input type="text" placeholder="Адреса доставки" required>
+                    <select required>
+                        <option value="" disabled selected>Спосіб оплати</option>
+                        <option value="card">Картка</option>
+                        <option value="cash">При отриманні</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-full">Замовити</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ---------------- CONTACTS VIEW ---------------- -->
+        <section id="view-contacts" class="view">
+            <div class="contacts-layout">
+                <div class="contacts-gallery">
+                    <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=400&q=80" alt="Gallery">
+                    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=400&q=80" class="col-span-2" alt="Gallery">
+                </div>
+                <div class="contacts-social">
+                    <h3>Follow us:</h3>
+                    <ul>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">YouTube</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ---------------- LOGIN VIEW ---------------- -->
+        <section id="view-login" class="view">
+            <div class="login-container">
+                <h2>Вхід</h2>
+                <form class="login-form" onsubmit="event.preventDefault(); alert('Logged in!'); app.navigate('home');">
+                    <input type="text" placeholder="Логін" required>
+                    <input type="password" placeholder="Пароль" required>
+                    <button type="submit" class="btn btn-primary btn-full">Увійти</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
